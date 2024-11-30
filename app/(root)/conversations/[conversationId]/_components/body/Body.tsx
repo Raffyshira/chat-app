@@ -65,13 +65,11 @@ const Body = ({ members }: Props) => {
    			${names[0]}, ${names[1]} and ${names.length - 2} more`}</p>
                      </TooltipTrigger>
                      <TooltipContent>
-                    	<ul>
-                    		{
-                    			names.map((name, index) => {
-                    				return <li key={index}>{name}</li>
-                    			})
-                    		}
-                    	</ul>
+                        <ul>
+                           {names.map((name, index) => {
+                              return <li key={index}>{name}</li>;
+                           })}
+                        </ul>
                      </TooltipContent>
                   </Tooltip>
                </TooltipProvider>
@@ -79,15 +77,18 @@ const Body = ({ members }: Props) => {
       }
    };
 
-   const getSeenMessage = (messageId: Id<"messages">) => {
-      const seenUsers = members
-         .filter(member => member.lastSeenMessageId === messageId)
-         .map(user => user.username?.spilt(" ")[0]);
+   const getSeenMessage = (messageId: Id<"messages">, senderId: Id<"users">) => {
+    const seenUsers = members
+      .filter(
+        (member) =>
+          member.lastSeenMessageId === messageId && member._id !== senderId
+      )
+      .map((user) => user.username!.split(" ")[0]);
 
-      if (seenUsers.length === 0) return undefined;
+    if (seenUsers.length === 0) return undefined;
 
-      return formatSeenBy(seenUsers);
-   };
+    return formatSeenBy(seenUsers);
+  };
    return (
       <div
          className="flex flex-1 w-full overflow-y-scroll flex-col-reverse gap-2
@@ -99,9 +100,10 @@ const Body = ({ members }: Props) => {
                   index > 0 &&
                   messages[index - 1]?.message.senderId === message.senderId;
 
-               const seenMessages = isCurrentUser
-                  ? getSeenMessage(message._id)
-                  : undefined;
+               const seenMessage = getSeenMessage(
+                  message._id,
+                  message.senderId
+               );
                return (
                   <Message
                      key={message._id}
@@ -111,7 +113,7 @@ const Body = ({ members }: Props) => {
                      lastByUser={lastByUser}
                      content={message.content}
                      createdAt={message._creationTime}
-                     seen={seenMessages}
+                     seen={seenMessage}
                      type={message.type}
                   />
                );

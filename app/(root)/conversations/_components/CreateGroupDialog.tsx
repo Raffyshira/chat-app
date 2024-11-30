@@ -52,10 +52,6 @@ import { Input } from "@/components/ui/input";
 
 import { CirclePlus, X } from "lucide-react";
 
-interface Props {
-   // Define your props here
-}
-
 const createGroupFormSchema = z.object({
    name: z.string().min(1, { message: "This field can't be empty" }),
    members: z
@@ -64,8 +60,9 @@ const createGroupFormSchema = z.object({
       .min(1, { message: "You must select at least 1 friend" })
 });
 
-const CreateGroupDialog = (props: Props) => {
+const CreateGroupDialog = () => {
    const friends = useQuery(api.friends.get);
+   console.log("Friends:", friends);
    const { mutate: createGroup, pending } = useMutationState(
       api.conversation.createGroup
    );
@@ -166,10 +163,10 @@ const CreateGroupDialog = (props: Props) => {
                                        {unselectedFriends.map(friend => {
                                           return (
                                              <DropdownMenuCheckboxItem
-                                                key={friend.id}
+                                                key={friend._id}
                                                 className="flex items-center gap-2 w-full
                                    		p-2"
-                                                onCheckChange={checked => {
+                                                onCheckedChange={checked => {
                                                    if (checked) {
                                                       form.setValue("members", [
                                                          ...members,

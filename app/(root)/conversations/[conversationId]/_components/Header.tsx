@@ -28,7 +28,7 @@ interface Props {
 
 const Header = ({ imageUrl, name, options }: Props) => {
    return (
-      <Card className="w-full flex rounded-lg items-center p-2 justify-between">
+      <div className="w-full flex rounded-lg items-center p-2 justify-between">
          <div className="flex items-center gap-2">
             <Link className="block md:hidden" href="/conversations">
                <CircleArrowLeft />
@@ -65,7 +65,7 @@ const Header = ({ imageUrl, name, options }: Props) => {
                </DropdownMenu>
             ) : null}
          </div>
-      </Card>
+      </div>
    );
 };
 

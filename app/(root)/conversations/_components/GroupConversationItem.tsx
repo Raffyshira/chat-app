@@ -25,11 +25,12 @@ const GroupConversationItem = ({
 }: Props) => {
    return (
       <Link href={`/conversations/${id}`} className="w-full">
-         <Card className="p-2 flex flex-row items-center gap-4 justify-between">
+         <div className="pb-3 border-b flex flex-row items-center gap-4
+         justify-between">
             <div className="flex flex-row items-center gap-4 truncate">
                <Avatar>
                   <AvatarFallback>
-                  {name.charAt(0).toLocaleUpperCase()}
+                     {name.charAt(0).toLocaleUpperCase()}
                   </AvatarFallback>
                </Avatar>
                <div className="flex flex-col truncate">
@@ -39,10 +40,10 @@ const GroupConversationItem = ({
                         className="text-sm text-muted-foreground flex truncate
                   overflow-ellipsis"
                      >
-                     <p className="font-semibold">
-                  {lastMessageSender}
-                  {":"}&nbsp;
-                </p>
+                        <p className="font-semibold">
+                           {lastMessageSender}
+                           {":"}&nbsp;
+                        </p>
                         <p className="truncate overflow-ellipsis">
                            {lastMessageContent}
                         </p>
@@ -58,8 +59,7 @@ const GroupConversationItem = ({
                </div>
             </div>
             {unseenCount ? <Badge>{unseenCount}</Badge> : null}
-  
-         </Card>
+         </div>
       </Link>
    );
 };

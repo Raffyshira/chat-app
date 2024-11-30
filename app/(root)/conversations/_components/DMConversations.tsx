@@ -54,7 +54,7 @@ const DMConversations = ({
                         className="text-sm
                   text-muted-foreground truncate"
                      >
-                        Start the conversation!
+                        Say hi to your friend!
                      </p>
                   )}
                </div>
